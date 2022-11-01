@@ -1,0 +1,45 @@
+﻿@model YellowMovieProject.Models.ViewModels.OrderDetailVM
+
+<div class="accordion" id="accordionOrder">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading@(Model.Order.Id)">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse@(Model.Order.Id)" aria-expanded="true" aria-controls="collapse@(Model.Order.Id)">
+                Order number #@Model.Order.Id. from @Model.Order.OrderDate.ToString("yyyy/MM/dd") with Total value $@Model.Total
+            </button>
+        </h2>
+
+        <div id="collapse@(Model.Order.Id)" class='accordion-collapse collapse ' aria-labelledby="heading@(Model.Order.Id)"
+             data-bs-parent="#accordionOrder">
+
+            <div class="accordion-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="d-none d-sm-block">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col">
+                                    <p class="lead fw-normal mb-2">Title</p>
+                                </div>
+                                <div class="col-3 text-end">
+                                    <p class="lead fw-normal mb-2">Price</p>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <p class="lead fw-normal mb-2">Quantity</p>
+                                </div>
+                                <div class="col-3 text-end">
+                                    <p class="lead mb-2 fw-bold">Total</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @foreach (var item in Model.Order.OrderRows)
+                        {
+                            @Html.Partial("_OrderRowPartial", item);
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

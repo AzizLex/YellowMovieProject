@@ -1,0 +1,44 @@
+﻿@model IEnumerable<YellowMovieProject.Models.Movie>
+
+
+<div class="text-center">
+    <h2>Search result</h2>
+</div>
+@if (Model.Count() > 0)
+{
+    <br />
+
+    <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_MovieCardPartial", item);
+        }
+    </div>
+}
+else
+{
+    <h4 class="text-danger"> Sorry, no result!</h4>
+}
+<script>
+
+    function addToCart(movieId)
+    {
+        var tmpObj = {
+            Id: movieId,
+        };
+
+        var req = new XMLHttpRequest();
+        req.onload = function () {
+            if (req.status >= 200 && req.status < 400 ) {
+                document.getElementById("ShoppingListItems").innerHTML = JSON.parse(this.response).Value;
+            }
+        }
+        req.open('POST', '@Url.Action("PostFromAjax", "ShoppingCart")', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+
+        req.send(JSON.stringify(tmpObj));
+    }
+</script>
+
+

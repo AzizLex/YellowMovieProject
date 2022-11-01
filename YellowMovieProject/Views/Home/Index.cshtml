@@ -1,0 +1,131 @@
+﻿@model YellowMovieProject.Models.ViewModels.HomeVM
+@{
+    ViewBag.Title = "YellowSub Movie Store";
+}
+
+@*The most popular movies based on the number of orders made*@
+@if (Model.Top5PopularMovies.Count() > 0) 
+{ 
+<div class="card m-2">
+    <div class="card-body">
+        <div class="card-header">
+            <h5 class="card-title text-center">The most popular movies</h5>
+        </div>
+        <div class="row">
+            <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+                @foreach (var item in Model.Top5PopularMovies)
+                {
+                    @Html.Partial("_MovieCardPartial", item);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@*The top 5 newest movies (based on release year)*@
+
+@if (Model.Top5NewestMovies.Count() > 0) 
+{ 
+<div class="card m-2">
+    <div class="card-body">
+        <div class="card-header">
+            <h5 class="card-title text-center">The top 5 newest movies</h5>
+        </div>
+
+        <div class="row">
+            <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+                @foreach (var item in Model.Top5NewestMovies)
+                {
+                    @Html.Partial("_MovieCardPartial", item);
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+
+@*The top 5 oldest movies (based to release year)*@
+@if (Model.Top5OldestMovies.Count() > 0) 
+{ 
+<div class="card m-2">
+    <div class="card-body">
+        <div class="card-header">
+            <h5 class="card-title text-center">The top 5 oldest movies</h5>
+        </div>
+        <div class="row">
+            <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+                @foreach (var item in Model.Top5OldestMovies)
+                {
+                    @Html.Partial("_MovieCardPartial", item);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@*The 5 cheapest movies (based to price)*@
+@if (Model.Top5CheapestMovies.Count() > 0) 
+{ 
+<div class="card m-2">
+    <div class="card-body">
+        <div class="card-header">
+            <h5 class="card-title text-center">The top 5 cheapest movies</h5>
+        </div>
+        <div class="row">
+            <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+                @foreach (var item in Model.Top5CheapestMovies)
+                {
+                    @Html.Partial("_MovieCardPartial", item);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@*The customer who has made the most expensive order*@
+@if (Model.ExpensiveOrder.Order != null) 
+{ 
+<div class="card m-2">
+    <div class="card-body">
+        <div class="card-header">
+            <h5 class="card-title">Most expensive order</h5>
+        </div>
+        <div class="row justify-content-center">
+
+            <div>
+                <p>
+                    Order #@Model.ExpensiveOrder.Order.Id from @Model.ExpensiveOrder.Order.OrderDate.ToString("yyyy-MM-dd") with total $@Model.ExpensiveOrder.Total
+                    placed by @(Model.ExpensiveOrder.Order.Customer.FirstName.Substring(0, 1)). @Model.ExpensiveOrder.Order.Customer.LastName  customer #@Model.ExpensiveOrder.Order.CustomerId
+                </p>
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script>
+
+
+    function addToCart(movieId)
+    {
+        var tmpObj = {
+            Id: movieId,
+        };
+
+        var req = new XMLHttpRequest();
+        req.onload = function () {
+            if (req.status >= 200 && req.status < 400 ) {
+                document.getElementById("ShoppingListItems").innerHTML = JSON.parse(this.response).Value;
+            }
+        }
+        req.open('POST', '@Url.Action("PostFromAjax", "ShoppingCart")', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+
+        req.send(JSON.stringify(tmpObj));
+    }
+</script>

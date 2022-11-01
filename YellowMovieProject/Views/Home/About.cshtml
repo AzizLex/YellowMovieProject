@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "About us";
+}
+<h2>@ViewBag.Title</h2>
+
+<p>This shop is created by Group12 Yellow Team - Lexicon Linköping.</p>
+<p>
+    <ul>
+        <li>Aziz Mannanov</li>
+        <li>Emil Lindmark</li>
+        <li>Ragnar Freudethal</li>
+        <li>Raid Mahbouba</li>
+    </ul>
+</p>
+<hr />
+
+
+
+<li>
+    Background
+    <ul>
+        <li>Bootstrap 5 - opportunity to use feature of "cards".</li>
+        <li>ASP.Net Framework 4.8.</li>
+        <li>Using session, not cookies.</li>
+        <li>Continuous integration and deployment, without pipelining.</li>
+        <li>Daily updates to repository on GitHub.</li>
+        <li>Published on Azure.</li>
+    </ul>
+
+</li>
+
+<hr />
+
+
+
+
+<ul>
+
+
+    <li>
+        Front page showing
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+
+
+        <ul>
+            <li>The most popular movies based on the number of orders made.</li>
+            <li>The 5 newest movies (based on release year).</li>
+            <li>The 5 oldest movies (based to release year).</li>
+            <li>The 5 cheapest movies (based to price).</li>
+            <li>The customer who has made the most expensive order (based of the sum of the order rows in an order).</li>
+        </ul>
+    </li>
+    <br />
+
+
+    <li>
+        A page displaying all movies in the database
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+
+        <ul>
+            <li>Each entry(movie) displays Title, Director, Release Year and Price.</li>
+            <li>Each entry (movie) rendered using a partial view.</li>
+            <li>A button next to each movie  exists, allowing the user to add the movie to the order cart; using session.</li>
+            <li>If the user clicks on “adding to cart” twice on the same movie, two copies are added to the order cart.</li>
+        </ul>
+    </li>
+    <br />
+
+
+
+
+    <li>
+        A page where user can add a movie to the database
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+        <ul>
+            <li>A form to add the movie by entering the Title, Director, Release Year and Price.</li>
+            <li>Add an image URL to the movies table.</li>
+        </ul>
+    </li>
+    <br />
+
+    <li>
+        Display shopping cart
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+
+        <ul>
+            <li>
+                A page that displays all the items in the shopping cart allowing the user to check out (place an order).
+                When the user checks out, the order should be created for the user with the given email address.
+                There are two options:
+                if the user has registered before - email address is entered, if not - the user registers by adding all necessary information (columns from customers table).
+            </li>
+            <li>Two buttons, add and remove copy buttons, that adds and reduces the number of copies for a movie by one.</li>
+            <li>After order completion the user is redirected to a page saying that the order was successfully completed.</li>
+            <li>When a customer registers an order an e-mail is sent by using Azure functions.</li>
+        </ul>
+    </li>
+    <br />
+
+    <li>
+        Displays orders for a customer
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+
+
+        <ul>
+            <li>Display all orders for a given customer, include total count of orders.</li>
+            <li>Each order for the user is displayed together with the movies belonging to the order (order rows). Also, the total cost for the order should be displayed.</li>
+            <li>Each order is rendered using a partial view.</li>            
+            
+        </ul>
+    </li>
+    <br />
+
+
+    <li>
+        Optional items performed
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+        </svg>
+
+        <ul>
+            <li>Pagination.</li>
+            <li>Search bar.</li>
+            <li>Allow customer to add separate billing address.</li>
+
+        </ul>
+        <br />
+    </li>
+    <li>
+        Optional items not performed:
+        <ul>
+            <li>Account functionality (login).</li>
+            <li> We did not use  <code>join</code> or <code>include</code> in LINQ-queries.</li>
+            <li>Using other solution than URL looking something like /Customers/Orders/{Email Address}</li>
+        </ul>
+
+    </li>
+
+
+</ul>
+
+<br />
+<br />
+<br />
+<br />
+
+<h2 class="text-uppercase">Many thanks to</h2>
+<div class="typing">
+    <h2 class="text-uppercase">Robert!</h2>
+</div>
+

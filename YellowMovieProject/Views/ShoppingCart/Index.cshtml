@@ -1,0 +1,229 @@
+﻿@model IEnumerable<YellowMovieProject.Models.OrderRow>
+
+<section class="h-100" style="background-color: #eee;">
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+
+                <div class="card p-4 mb-4 border-3">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+                        <h3 class="fw-normal mb-0 text-black float-mg-start">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            Shopping Cart
+                        </h3>
+
+
+                        <div class="collapse multi-collapse" id="ChangeButton">
+                            <button type="button" class="btn btn-light btn-block btn-lg float-end btn-outline-dark" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="UserInfo ShoppingList ChangeButton BackNextButtons">Change</button>
+                        </div>
+                    </div>
+                    <div id="CartEmpty" class="card rounded-3 mb-4 @(Model.Count()>0?"d-none":"")">
+                        <div class="card-body p-4">
+                            <h2>Your shopping cart is empty</h2>
+                        </div>
+                    </div>
+
+                    <div id="ShoppingList" class="collapse multi-collapse @(Model.Count()>0?"show":"")">
+
+                        <div class="row  justify-content-between align-items-center d-none d-md-flex">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                <p class="lead fw-normal mb-2 fw-bold">Title</p>
+
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2">
+
+                                <p class="lead fw-normal mb-2  fw-bold">Quantity</p>
+
+
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xl-2 ">
+                                <p class="lead fw-normal mb-2  fw-bold">Price</p>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1">
+
+                            </div>
+                        </div>
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="card rounded-3 mb-2">
+                                <div class="card-body p-2">
+                                    <div class="row d-flex justify-content-between align-items-center movie" id="@(item.MovieId)">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img src='@(item.Movie.PosterURL??"/Data/image.png")' onerror="this.onerror=null; this.src='/Data/image.png'"
+                                                     class="img-fluid rounded-3" style="object-fit:cover;" alt="@item.Movie.Title">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <p class="lead fw-normal mb-2">@item.Movie.Title</p>
+                                            <p><span class="text-muted">"Release Year: </span>@item.Movie.ReleaseYear</p>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button class="btn btn-link px-2"
+                                                    onclick="decreaseQuantity(this)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                                </svg>
+                                            </button>
+
+                                            <input min="0" name="quantity" value="@item.Quantity" type="number"
+                                                   onchange="changeQuantity()"
+                                                   class="form-control form-control-sm quantity" />
+
+                                            <button class="btn btn-link px-2"
+                                                    onclick="increaseQuantity(this)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-xl-2 ">
+                                            <p class="mb-0 fw-bold">$<span class="price">@item.Price</span></p>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1">
+                                            <button class="btn btn-link px-md-0 px-2"
+                                                    onclick="removeMovie(this)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div class="row  justify-content-between align-items-center d-none d-sm-flex">
+
+                            <div class="col-md-9 text-end">
+                                <p class="lead fw-normal mb-2  fw-bold">Total price: $<span id="total">@ViewBag.Total</span></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="collapse multi-collapse show" id="BackNextButtons">
+                        <div class="row justify-content-center justify-content-lg-between">
+                            <div class="col-12 col-xs-8 col-sm-7 col-lg-4">
+                                <button type="button" title="Go back to shopping cart" onclick="history.back()"
+                                        class="btn btn-secondary btn-lg px-3 m-1 col-12">
+                                    Back to shopping
+                                </button>
+                            </div>
+
+                           
+                            <div class="col-12 col-xs-8 col-sm-7 col-lg-4">
+                                <button id="proceedTo" title="Continue to payment" class="btn btn-success btn-lg px-3 m-1 col-12 @((Model.Count()>0)?"":"disabled") "
+                                        type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false"
+                                        aria-controls="UserInfo ShoppingList ChangeButton BackNextButtons">
+                                    Proceed to next
+                                </button>
+                            </div>
+                        </div>
+   
+                    </div>
+                </div>
+
+
+                <div class="collapse multi-collapse" id="UserInfo">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <h5 class="fw-normal text-black">Your contact information:</h5>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body p-4 ">
+                            <form action="@Url.Action("checkUserContact","ShoppingCart")">
+                                <div class="input-group">
+                                    <input type="text" name="contact" class="form-control form-control-lg col-5" placeholder="Enter e-mail address or phone number" />
+                                    <button type="submit" class="btn btn-success btn-lg ms-3">Proceed to order</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function decreaseQuantity(inp)
+    {
+        inp.parentNode.querySelector('input[type=number]').stepDown();
+        updateCounts();
+
+	}
+    function increaseQuantity(inp)
+    {
+		inp.parentNode.querySelector('input[type=number]').stepUp()
+        updateCounts();
+    }
+
+    function removeMovie(inp)
+    {
+        inp.parentNode.parentNode.parentNode.parentNode.remove();
+        updateCounts();
+    }
+    function changeQuantity()
+    {
+        updateCounts();
+    }
+
+    function updateCounts()
+    {
+        var tempObj = {
+            movieIds: [],
+            quantities:[]
+        };
+
+        const movies = document.getElementsByClassName("movie");
+
+        var totalMovies=0, total=0, quantity, price;
+
+        for (var i = 0; i < movies.length; i++)
+        {
+            tempObj.movieIds.push(Number(movies[i].id));
+
+            quantity = Number(movies[i].getElementsByClassName("quantity")[0].value);
+            tempObj.quantities.push(quantity);
+
+            price = Number(movies[i].getElementsByClassName("price")[0].innerHTML);
+
+            totalMovies += quantity;
+            total += quantity * price;
+
+        };
+        var req = new XMLHttpRequest();
+		req.onload = function () {
+			if (req.status >= 200 && req.status < 400 ) {
+
+			}
+		}
+		req.open('POST', '@Url.Action("updateCart", "ShoppingCart")', true);
+		req.setRequestHeader('Content-Type', 'application/json');
+        req.send(JSON.stringify(tempObj));
+
+        document.getElementById("ShoppingListItems").innerHTML = totalMovies;
+        document.getElementById("total").innerHTML = total.toFixed(2);
+        if (totalMovies == 0) {
+            document.getElementById("proceedTo").classList.add("disabled");
+            document.getElementById("ShoppingList").classList.remove("show");
+            document.getElementById("CartEmpty").classList.remove("d-none");
+        }
+
+
+
+    }
+</script>
+

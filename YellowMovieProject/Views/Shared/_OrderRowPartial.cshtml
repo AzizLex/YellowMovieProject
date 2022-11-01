@@ -1,0 +1,30 @@
+﻿@model YellowMovieProject.Models.OrderRow
+
+@*Order Row Partial View*@
+@*Different views for different width by line 5-22 and 25-xx, respectively*@
+<div class="d-none d-sm-block card rounded-3 mb-0">
+    <div class="card-body p-1">
+        <div class="row d-flex ">
+            <div class="col">
+                <p class="lead fw-normal mb-2">@Model.Movie.Title</p> @*//title*@
+            </div>
+            <div class="col-3 text-end">
+                <p class="lead fw-normal mb-2">$@Model.Price</p>
+            </div>
+            <div class="col-2 text-end">
+                <p class="lead fw-normal mb-2">@Model.Quantity</p>
+            </div>
+            <div class="col-3 text-end">
+                <p class="lead mb-0 fw-bold">$@(Model.Price*Model.Quantity)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-block d-sm-none card  rounded-3 mb-4">
+    <p class="lead fw-normal mb-2"><i>@Model.Movie.Title</i></p>
+    <p class="lead fw-normal mb-2">Price: $@Model.Price &nbsp;  Quantity: @Model.Quantity</p>
+    <p class="lead mb-0 fw-bold">Total: $@(Model.Price*Model.Quantity)</p>
+</div>
+

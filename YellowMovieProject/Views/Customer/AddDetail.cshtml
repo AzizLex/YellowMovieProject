@@ -1,0 +1,150 @@
+﻿@model YellowMovieProject.Models.Customer
+
+@{
+    ViewBag.Title = "Add customer";
+}
+
+<section class="h-100" style="background-color: #eee;">
+
+
+    <div class="container h-100 py-5">
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+
+
+                <div class="card p-4 mb-4 border-3">
+
+                    <h2>Enter your details</h2>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="container-fluid">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
+                                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label required" })
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label required" })
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label required" })
+                                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.BillingAddress, htmlAttributes: new { @class = "control-label required" })
+                                                @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.BillingZIP, htmlAttributes: new { @class = "control-label required" })
+                                                @Html.EditorFor(model => model.BillingZIP, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BillingZIP, "", new { @class = "text-danger" })
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.BillingCity, htmlAttributes: new { @class = "control-label required" })
+                                                @Html.EditorFor(model => model.BillingCity, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BillingCity, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="collapse col-lg-6" id="DeliveryAddressId">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DeliveryAddress, htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.DeliveryAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DeliveryZIP, htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.DeliveryZIP, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.DeliveryZIP, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DeliveryCity, htmlAttributes: new { @class = "control-label" })
+                                                @Html.EditorFor(model => model.DeliveryCity, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.DeliveryCity, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h4 class="mt-3">Is the billing address the same as the delivery address?</h4>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                               data-bs-toggle="collapse" href="#DeliveryAddressId" role="button" aria-expanded="false" aria-controls="DeliveryAddressId" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                               data-bs-toggle="collapse" href="#DeliveryAddressId" role="button" aria-expanded="false" aria-controls="DeliveryAddressId">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <h2 class="text-danger">@ViewBag.CustomerFormError</h2>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-xs-8 col-sm-7 col-lg">
+                                            <button type="button" title="Go back to shopping cart" onclick="history.back()"
+                                                    class="btn btn-secondary btn-lg px-3 m-1 col-12">
+                                                Go back
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-xs-8 col-sm-7 col-lg">
+                                            <button title="Will empty form" class="btn btn-danger btn-lg px-3 m-1 col-12"
+                                                    type="reset">
+                                                Reset
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-xs-8 col-sm-7 col-lg">
+                                            <button title="Continue to payment" class="btn btn-success btn-lg px-3 m-1 col-12"
+                                                    type="submit">
+                                                Continue
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

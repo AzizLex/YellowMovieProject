@@ -1,0 +1,64 @@
+﻿@model IEnumerable<YellowMovieProject.Models.ViewModels.OrderDetailVM>
+@{
+    ViewBag.Title = "CustomerOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if(Model.Count()==0)
+{
+    using (Html.BeginForm("customerOrders","Customer",FormMethod.Get))
+    {
+        <label for="mail">E-mail:</label>
+        <br>
+        <input type="text" id="inMail" name="inMail" placeholder="abc@abcmail.com">
+        <br>
+        <div class="col-md-10">
+        </div>
+        <br>
+        <input type="submit" value="Submit">
+    }
+}
+else
+{
+    <div class="row ">
+        <div class=" col-sm-4">
+            <p>
+                <b>Customer id: @Model.ElementAt(0).Order.Customer.Id</b><br />
+                @Model.ElementAt(0).Order.Customer.FirstName @Model.ElementAt(0).Order.Customer.LastName<br />
+                E-mail: @Model.ElementAt(0).Order.Customer.EmailAddress<br />
+                Phone: @Model.ElementAt(0).Order.Customer.PhoneNo<br />
+            </p>
+        </div>
+
+        <div class=" col-sm-4">
+            <p>
+                <b>Billing address:</b><br />
+                @Model.ElementAt(0).Order.Customer.BillingAddress<br />
+                @Model.ElementAt(0).Order.Customer.BillingZIP, @Model.ElementAt(0).Order.Customer.BillingCity<br />
+            </p>
+        </div>
+
+        @if (@Model.ElementAt(0).Order.Customer.DeliveryAddress != @Model.ElementAt(0).Order.Customer.BillingAddress ||
+            @Model.ElementAt(0).Order.Customer.DeliveryCity != @Model.ElementAt(0).Order.Customer.BillingCity ||
+            @Model.ElementAt(0).Order.Customer.DeliveryZIP != @Model.ElementAt(0).Order.Customer.BillingZIP
+            )
+        {
+    <div class=" col-sm-4">
+        <p>
+            <b>Delivery address:</b><br />
+            @Model.ElementAt(0).Order.Customer.DeliveryAddress<br />
+            @Model.ElementAt(0).Order.Customer.DeliveryZIP, @Model.ElementAt(0).Order.Customer.DeliveryCity<br />
+        </p>
+    </div>
+        }
+
+        <div class="d-flex justify-content-end">
+        </div>
+        <p></p>
+        <div class="accordion" id="accordionOrder">
+            @foreach (var item in Model)
+            {
+                @Html.Partial("_OrderDetailsPartial", item);
+            }
+        </div>
+    </div>
+}

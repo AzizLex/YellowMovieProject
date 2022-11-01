@@ -1,0 +1,122 @@
+﻿@model YellowMovieProject.Models.MoviePaginationHelper
+
+
+<div class="text-center">
+    <h2>All Movies</h2>
+</div>
+
+    <br />
+    <div>
+        
+
+            <div class="row justify-content-center row-cols-md-2 row-cols-sm-2 row-cols-xs-1">
+
+                @foreach (var item in Model.Movies)
+                {
+                    @Html.Partial("_MovieCardPartial", item);
+                }
+            </div>
+            <br />
+            <nav aria-label="Page Navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        @if(@Model.CurrentPageIndex != 1)
+                        {
+                            <a class="page-link" href="@Url.Action("ListAllMovies","Movie",new {currentPage=Model.CurrentPageIndex-1})" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only"></span>
+                            </a>
+                        }
+                        
+                    </li>
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        if (i != Model.CurrentPageIndex && i > Model.CurrentPageIndex - 4 && i < Model.CurrentPageIndex + 5)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("ListAllMovies","Movie",new {currentPage=i})">@i</a>
+                            </li>
+                        }
+                        else if (i == 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("ListAllMovies","Movie",new {currentPage=i})">@i</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>
+                        }
+                        else if (i == Model.PageCount)
+                        {
+                            <li class="page-item">
+                                <a class="page-link">...</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("ListAllMovies","Movie",new {currentPage=i})">@i</a>
+                            </li>
+                        }
+
+                        else if (i == Model.CurrentPageIndex)
+                        {
+                            <li class="active page-item"><a class="page-link">@i</a></li>
+                        }
+                    }
+                <li class="page-item">
+                    @if (@Model.CurrentPageIndex != Model.PageCount)
+                    {
+                        <a class="page-link" href="@Url.Action("ListAllMovies","Movie",new {currentPage=Model.CurrentPageIndex+1})" aria-label="next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only"></span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="#" aria-label="next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only"></span>
+                        </a>
+                    }
+                </li>
+                </ul>
+            </nav>
+            
+            @*<input type="hidden" id="hfCurrentPageIndex" name="currentPage" />*@
+        
+        @*<script type="text/javascript">
+            function PagerClick(index) {
+                document.getElementById("hfCurrentPageIndex").value = index;
+                document.forms[1].submit();
+            }
+        </script>*@
+    </div>
+    
+
+        
+
+    <script>
+
+    function addToCart(movieId)
+    {
+        var tmpObj = {
+            Id: movieId,
+        };
+
+        var req = new XMLHttpRequest();
+        req.onload = function () {
+            if (req.status >= 200 && req.status < 400 ) {
+                document.getElementById("ShoppingListItems").innerHTML = JSON.parse(this.response).Value;
+            }
+        }
+        req.open('POST', '@Url.Action("PostFromAjax", "ShoppingCart")', true);
+        req.setRequestHeader('Content-Type', 'application/json');
+
+        req.send(JSON.stringify(tmpObj));
+    }
+    </script>

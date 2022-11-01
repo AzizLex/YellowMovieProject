@@ -1,0 +1,22 @@
+﻿@model YellowMovieProject.Models.Movie
+
+<div class="card text-dark border-dark bg-light m-1 g-0" style="max-width: 15rem;">
+    <div class="ratio ratio-1x1">
+        <img src='@(Model.PosterURL??"/Data/image.png")' class="card-img-top m-0" style="object-fit:cover;" alt="@Model.Title" onerror="this.onerror=null; this.src='/Data/image.png'">
+    </div>
+    <div class="card-body">
+
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">
+            Year: @Model.ReleaseYear<br />
+            Director: @Model.Director<br />
+        </p>
+
+
+    </div>
+    <p class="card-text fw-bold mx-3">Price: $@Model.Price</p>
+    <button class="btn btn-primary" onclick="addToCart(@Model.Id)">Add to cart</button>
+</div>
+
+
+
