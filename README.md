@@ -1,4 +1,4 @@
-# YellowMovieProject
+# Yellow Movie Project
 
 This Movie Shop project is created by Group12 Yellow Team - Lexicon Linköping.
 <ul>
